@@ -40,7 +40,7 @@ class Platform {
   constructor() {
     this.position = {
       x: 200,
-      y: 100,
+      y: 500,
     };
     this.width = 200;
     this.height = 20;
@@ -80,9 +80,9 @@ function animate() {
   }
 
   //platform' movement
-  if (keys.right.pressed) {
+  if (keys.right.pressed && player.velocity.x == 0) {
     platform.position.x -= 5;
-  } else if (keys.left.pressed) {
+  } else if (keys.left.pressed && player.velocity.x == 0) {
     platform.position.x += 5;
   }
 
@@ -103,15 +103,12 @@ animate();
 addEventListener("keydown", ({ keyCode }) => {
   switch (keyCode) {
     case 38:
-      console.log("up");
       player.velocity.y -= 30;
       break;
     case 37:
-      console.log("left");
       keys.left.pressed = true;
       break;
     case 39:
-      console.log("right");
       keys.right.pressed = true;
       break;
   }
@@ -121,15 +118,12 @@ addEventListener("keydown", ({ keyCode }) => {
 addEventListener("keyup", ({ keyCode }) => {
   switch (keyCode) {
     case 38:
-      console.log("up");
       player.velocity.y = 0;
       break;
     case 37:
-      console.log("left");
       keys.left.pressed = false;
       break;
     case 39:
-      console.log("right up");
       keys.right.pressed = false;
       break;
   }
