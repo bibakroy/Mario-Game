@@ -70,12 +70,20 @@ function animate() {
   player.update();
   platform.draw();
 
+  //players' movement
   if (keys.right.pressed && player.position.x < 400) {
     player.velocity.x = 5;
   } else if (keys.left.pressed && player.position.x > 100) {
     player.velocity.x = -5;
   } else {
     player.velocity.x = 0;
+  }
+
+  //platform' movement
+  if (keys.right.pressed) {
+    platform.position.x -= 5;
+  } else if (keys.left.pressed) {
+    platform.position.x += 5;
   }
 
   // platform collision detection
