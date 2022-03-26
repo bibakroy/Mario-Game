@@ -151,6 +151,8 @@ function init() {
   scrollOffset = 0;
 }
 
+let runPermission = true;
+
 function animate() {
   requestAnimationFrame(animate);
 
@@ -212,20 +214,23 @@ function animate() {
     }
   });
 
-  // lose situation - reset everything with init function
+  // lose situation
   if (player.position.y > canvas.height) {
+    alert("Hey, you lose...");
+    keys.right.pressed = false; //angle fall error fixing
+    keys.left.pressed = false; //angle fall error fixing
     init();
   }
 
   // win situation
   if (
-    scrollOffset >
-    platformImage.width * 5 + 300 - 2
-    // &&
-    // player.position.y + player.height >=
-    //   canvas.height - platformImage.height + 20
+    runPermission &&
+    scrollOffset > platformImage.width * 5 + 300 &&
+    player.position.y + player.height >= 455
   ) {
-    console.log("you win");
+    runPermission = false;
+    alert("Congratulations...\nYou have won the game.");
+    window.location.reload();
   }
 }
 
