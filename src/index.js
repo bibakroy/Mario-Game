@@ -187,7 +187,7 @@ function animate() {
     genericObjects.forEach((genericObject) => {
       genericObject.position.x -= player.speed * 0.66;
     });
-  } else if (keys.left.pressed && player.velocity.x === 0) {
+  } else if (keys.left.pressed && scrollOffset > 0 && player.velocity.x === 0) {
     scrollOffset -= player.speed;
 
     platforms.forEach((platform) => {
@@ -232,29 +232,29 @@ function animate() {
 init();
 animate();
 
-window.addEventListener("keydown", ({ keyCode }) => {
-  switch (keyCode) {
-    case 38:
+window.addEventListener("keydown", ({ key }) => {
+  switch (key) {
+    case "ArrowUp":
       player.velocity.y -= 30;
       break;
-    case 37:
+    case "ArrowLeft":
       keys.left.pressed = true;
       break;
-    case 39:
+    case "ArrowRight":
       keys.right.pressed = true;
       break;
   }
 });
 
-window.addEventListener("keyup", ({ keyCode }) => {
-  switch (keyCode) {
-    case 38:
+window.addEventListener("keyup", ({ key }) => {
+  switch (key) {
+    case "ArrowUp":
       player.velocity.y = 0;
       break;
-    case 37:
+    case "ArrowLeft":
       keys.left.pressed = false;
       break;
-    case 39:
+    case "ArrowRight":
       keys.right.pressed = false;
       break;
   }
