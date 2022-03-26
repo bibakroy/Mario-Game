@@ -341,7 +341,9 @@ animate();
 window.addEventListener("keydown", ({ key }) => {
   switch (key) {
     case "ArrowUp":
-      player.velocity.y -= 30;
+      if (player.position.y > 200) {
+        player.velocity.y -= 30;
+      }
       break;
     case "ArrowLeft":
       keys.left.pressed = true;
