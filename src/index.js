@@ -10,7 +10,7 @@ import spriteStandRight from "./img/spriteStandRight.png";
 
 const canvas = document.querySelector("canvas");
 canvas.width = 1024;
-canvas.height = 576;
+canvas.height = 676;
 const c = canvas.getContext("2d");
 const gravity = 1.5;
 
@@ -147,11 +147,11 @@ function init() {
 
   player = new Player();
   platforms = [
-    new Platform({ x: -1, y: 460, image: platformImage }),
-    new Platform({ x: platformImage.width - 3, y: 460, image: platformImage }),
+    new Platform({ x: -1, y: 560, image: platformImage }),
+    new Platform({ x: platformImage.width - 3, y: 560, image: platformImage }),
     new Platform({
       x: platformImage.width * 2 + 100,
-      y: 460,
+      y: 560,
       image: platformImage,
     }),
     new Platform({
@@ -161,22 +161,42 @@ function init() {
         2 +
         platformImage.width -
         platformSmallTallImage.width,
-      y: 240,
+      y: 340,
       image: platformSmallTallImage,
     }),
     new Platform({
       x: platformImage.width * 3 + 300,
-      y: 460,
+      y: 560,
       image: platformImage,
     }),
     new Platform({
       x: platformImage.width * 4 + 300 - 2,
-      y: 460,
+      y: 560,
       image: platformImage,
     }),
     new Platform({
+      x:
+        platformImage.width * 6 +
+        700 -
+        3 +
+        platformImage.width -
+        platformSmallTallImage.width,
+      y: 340,
+      image: platformSmallTallImage,
+    }),
+    new Platform({
       x: platformImage.width * 5 + 700 - 2,
-      y: 460,
+      y: 560,
+      image: platformImage,
+    }),
+    new Platform({
+      x: platformImage.width * 6 + 700 - 3,
+      y: 560,
+      image: platformImage,
+    }),
+    new Platform({
+      x: platformImage.width * 7 + 1200 - 3,
+      y: 560,
       image: platformImage,
     }),
   ];
@@ -197,6 +217,7 @@ function init() {
 }
 
 let runPermission = true;
+let lastKey;
 
 function animate() {
   requestAnimationFrame(animate);
@@ -259,6 +280,42 @@ function animate() {
     }
   });
 
+  //player run right or left & stand right or left
+  if (
+    keys.right.pressed &&
+    lastKey === "right" &&
+    player.currentSprite !== player.sprites.run.right
+  ) {
+    player.frame = 1;
+    player.currentSprite = player.sprites.run.right;
+    player.currentCropWidth = player.sprites.run.cropWidth;
+    player.width = player.sprites.run.width;
+  } else if (
+    keys.left.pressed &&
+    lastKey === "left" &&
+    player.currentSprite !== player.sprites.run.left
+  ) {
+    player.currentSprite = player.sprites.run.left;
+    player.currentCropWidth = player.sprites.run.cropWidth;
+    player.width = player.sprites.run.width;
+  } else if (
+    !keys.right.pressed &&
+    lastKey === "right" &&
+    player.currentSprite !== player.sprites.stand.right
+  ) {
+    player.currentSprite = player.sprites.stand.right;
+    player.currentCropWidth = player.sprites.stand.cropWidth;
+    player.width = player.sprites.stand.width;
+  } else if (
+    !keys.left.pressed &&
+    lastKey === "left" &&
+    player.currentSprite !== player.sprites.stand.left
+  ) {
+    player.currentSprite = player.sprites.stand.left;
+    player.currentCropWidth = player.sprites.stand.cropWidth;
+    player.width = player.sprites.stand.width;
+  }
+
   // lose situation
   if (runPermission && player.position.y > canvas.height) {
     runPermission = false;
@@ -269,8 +326,8 @@ function animate() {
   // win situation
   if (
     runPermission &&
-    scrollOffset > platformImage.width * 5 + 300 &&
-    player.position.y + player.height >= 455
+    (scrollOffset > platformImage.width * 7 + 800) &
+      (player.position.y + player.height >= 465)
   ) {
     runPermission = false;
     alert("Congratulations...\nYou have won the game.");
@@ -288,15 +345,11 @@ window.addEventListener("keydown", ({ key }) => {
       break;
     case "ArrowLeft":
       keys.left.pressed = true;
-      player.currentSprite = player.sprites.run.left;
-      player.currentCropWidth = player.sprites.run.cropWidth;
-      player.width = player.sprites.run.width;
+      lastKey = "left";
       break;
     case "ArrowRight":
       keys.right.pressed = true;
-      player.currentSprite = player.sprites.run.right;
-      player.currentCropWidth = player.sprites.run.cropWidth;
-      player.width = player.sprites.run.width;
+      lastKey = "right";
       break;
   }
 });
@@ -308,15 +361,9 @@ window.addEventListener("keyup", ({ key }) => {
       break;
     case "ArrowLeft":
       keys.left.pressed = false;
-      player.currentSprite = player.sprites.stand.left;
-      player.currentCropWidth = player.sprites.stand.cropWidth;
-      player.width = player.sprites.stand.width;
       break;
     case "ArrowRight":
       keys.right.pressed = false;
-      player.currentSprite = player.sprites.stand.right;
-      player.currentCropWidth = player.sprites.stand.cropWidth;
-      player.width = player.sprites.stand.width;
       break;
   }
 });
