@@ -330,7 +330,9 @@ function animate() {
       (player.position.y + player.height >= 465)
   ) {
     runPermission = false;
-    alert("Congratulations...\nYou have won the game.");
+    alert(
+      "Congratulations...\nYou have reached the last platform and won the game."
+    );
     window.location.reload();
   }
 }
