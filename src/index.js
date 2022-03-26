@@ -197,7 +197,7 @@ function animate() {
 
   // win position
   if (scrollOffset > 2000) {
-    console.log("you win");
+    alert("you win");
   }
 
   // lose position - reset everything with init function
