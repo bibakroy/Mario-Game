@@ -200,7 +200,7 @@ function animate() {
     console.log("you win");
   }
 
-  // lose position
+  // lose position - reset everything with init function
   if (player.position.y > canvas.height) {
     init();
   }
