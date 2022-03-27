@@ -144,7 +144,6 @@ let scrollOffset = 0;
 
 function init() {
   platformImage = createImage(platform);
-
   player = new Player();
   platforms = [
     new Platform({ x: -1, y: 560, image: platformImage }),
