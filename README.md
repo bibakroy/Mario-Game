@@ -1,5 +1,5 @@
 For Watching Live Demo,
-Go to: mario-play.vercel.app
+Go to: https://mario-play.vercel.app/
 
 
 For running the code, open terminal and run following commands:
